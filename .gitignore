@@ -1,0 +1,6 @@
+chunks/
+uploads/
+*.lock
+__pycache__/
+.venv/
+.env

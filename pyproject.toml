@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "vidflow"
+version = "0.1.0"
+description = ""
+authors = ["subhamsarangi <subhamsarangi2016@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.115.12"
+uvicorn = "^0.34.2"
+aiofiles = "^24.1.0"
+python-multipart = "^0.0.20"
+python-jose = "^3.4.0"
+python-slugify = "^8.0.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
