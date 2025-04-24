@@ -1,0 +1,36 @@
+body {
+    font-family: 'Outfit', Arial, sans;
+    background-color: #f8f9fa;
+}
+
+.card {
+    border-radius: 1rem;
+    border: none;
+}
+
+.card h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.card .btn-primary {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+}
+
+.video-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.video-container video {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+    transition: width 0.4s ease;
+}

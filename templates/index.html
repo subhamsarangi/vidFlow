@@ -1,9 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Chunked File Upload</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css" />
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     function generateUUID() {
@@ -15,12 +20,29 @@
     }
   </script>
 </head>
-<body>
-  <h2>Upload Large File in Chunks</h2>
-  <input type="file" id="fileInput" />
-  <button id="uploadBtn">Upload</button>
-  <br /><br />
-  <progress id="progressBar" value="0" max="100" style="width: 400px;"></progress>
+<body class="bg-light">
+  <div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card shadow p-4 w-100" style="max-width: 600px;">
+      <h3 class="text-center mb-4">
+        <i class="fas fa-upload me-2 text-primary"></i>Upload Large File in Chunks
+      </h3>
+      <div class="mb-3">
+        <input type="file" class="form-control" id="fileInput" />
+        <small id="fileError" class="text-danger d-none">Please select a file before uploading.</small>
+      </div>
+      <div class="d-grid gap-2">
+        <button class="btn btn-primary" id="uploadBtn">
+          <i class="fas fa-cloud-upload-alt me-2"></i>Upload
+        </button>
+      </div>
+      <div class="progress mt-4" style="height: 20px; display: none;">
+        <div id="progressBar" class="progress-bar bg-success" role="progressbar" style="width: 0%;">
+          0%
+        </div>
+      </div>      
+    </div>
+  </div>
+
   <script src="/static/upload.js"></script>
 </body>
 </html>

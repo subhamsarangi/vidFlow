@@ -19,6 +19,7 @@ from fastapi import (
     Form,
     Query,
 )
+from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, StreamingResponse
@@ -49,6 +50,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+templates = Jinja2Templates(directory="templates")
 
 # Directories
 BASE_DIR = Path(__file__).parent
@@ -180,51 +183,23 @@ async def file_page(filename: str, token: str, request: Request):
         if not file_path.exists():
             raise HTTPException(status_code=404, detail="File not found")
 
-        # 1. Compute size
+        # Compute size
         file_size = file_path.stat().st_size
         size_str = sizeof_fmt(file_size)
 
-        # 2. Determine if it's a video file by extension
+        # Determine if it's a video file by extension
         is_video = filename.lower().endswith((".mp4", ".webm", ".ogg", ".mov", ".mkv"))
-        print(f"{is_video} is_video. {filename}")
-        # 3. Render HTML
-        PAGE_html = ""
-        if is_video:
-            PAGE_html = f"""
-            <video
-            id="videoPlayer"
-            width="640"
-            controls
-            controlsList="nodownload"
-            preload="metadata"
-            oncontextmenu="return false;"
-            >
-            <source src="/stream/{filename}?token={token}" type="video/mp4">
-            Your browser does not support the video tag.
-            </video>
-            <script>
-            document.getElementById('videoPlayer')
-                .addEventListener('contextmenu', e => e.preventDefault());
-            </script>
-            """
-        else:
-            # Non-video files get a simple download link
-            PAGE_html = f"""
-            <p><a href="/stream/{filename}?token={token}" download>Download File</a></p>
-            """
 
-        html = f"""
-            <!DOCTYPE html>
-            <html>
-            <head><title>File: {filename}</title></head>
-            <body>
-            <h3>{filename}</h3>
-            <p>Size: {size_str}</p>
-            {PAGE_html}
-            </body>
-            </html>
-        """
-        return HTMLResponse(content=html)
+        return templates.TemplateResponse(
+            "file_page.html",
+            {
+                "request": request,
+                "filename": filename,
+                "size_str": size_str,
+                "is_video": is_video,
+                "token": token,
+            },
+        )
 
     except Exception as e:
         logging.error(f"Error in file_page: {e}\n{traceback.format_exc()}")
