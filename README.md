@@ -1,7 +1,12 @@
-uvicorn main:app --reload --host 0.0.0.0
+## FEATURES
+- Chunked upload and reassemble
+- Partial Streaming
+- Hotlinking protection
 
-FIXING ERRORS:
-netstat -ano | findstr :8000
-taskkill /PID <PID> /F
+## RUN
+`uvicorn main:app --reload --host 0.0.0.0`
 
-192.168.29.76:8000
+## FIXING ERRORS:
+- `netstat -ano | findstr :8000`
+
+- `taskkill /PID <PID> /F`
