@@ -13,7 +13,7 @@ uvicorn app.main:app --reload --host 0.0.0.0
 
 ## TODO:
 - Add a Button to Cancel/Stop upload midway which does cleanup as well
-- The URL of the uploaded file page should not need a token, only the partial requests should need token
+- The URL of the uploaded file page should not need a token, only the partial streaming requests should need token
 - Button to copy the link of the video page
 - Add fields to input the description, title and tags to the content
 - Add feature to solve captcha before downloading a non-video file

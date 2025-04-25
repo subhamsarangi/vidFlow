@@ -64,10 +64,9 @@ async def merge_chunks(unique_folder: str):
                     out.write(cf.read())
         shutil.rmtree(chunk_dir)
 
-        token = create_token(dest.name)
         return {
             "status": "merge complete",
-            "video_url": f"/content/{dest.name}?token={token}",
+            "video_url": f"/content/{dest.name}",
         }
     except HTTPException:
         raise

@@ -7,7 +7,7 @@ from fastapi import APIRouter, Request, HTTPException, Header
 from fastapi.responses import StreamingResponse
 from fastapi.templating import Jinja2Templates
 
-from ..auth import verify_token
+from ..auth import verify_token, create_token
 from ..config import UPLOAD_DIR, SECRET_KEY, ALLOWED_REFERERS
 from ..utils import sizeof_fmt
 
@@ -16,12 +16,13 @@ templates = Jinja2Templates(directory="templates")
 
 
 @router.get("/content/{filename}")
-async def file_page(filename: str, token: str, request: Request):
+async def file_page(filename: str, request: Request):
     try:
-        verify_token(token, filename)
         path = UPLOAD_DIR / filename
         if not path.exists():
             raise HTTPException(404, "File not found")
+
+        token = create_token(filename)
 
         return templates.TemplateResponse(
             "file_page.html",
